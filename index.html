@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="calculator.manifest">
+  <title>Calculator</title>
+</head>
+
+<body>
+  <div id="calculator">
+    <div id="caret-container">
+      <textarea id="caret-box" type="text" value="|" readonly></textarea>
+    </div>
+    <div id="calculator-screen">
+      <textarea id="current-expression" type="text" readonly></textarea>
+    </div>
+    <button data-key="(" data-printable class="calculator-key">(</button>
+    <button data-key=")" data-printable class="calculator-key">)</button>
+    <button data-key="^" data-printable data-op class="calculator-key fn-key">^</button>
+    <button data-key="Backspace Delete" class="calculator-key" id="delete-key" fn-key">DEL</button>
+    <button data-key="7" data-printable class="calculator-key">7</button>
+    <button data-key="8" data-printable class="calculator-key">8</button>
+    <button data-key="9" data-printable class="calculator-key">9</button>
+    <button data-key="/" data-printable data-op class="calculator-key fn-key">÷</button>
+    <button data-key="4" data-printable class="calculator-key">4</button>
+    <button data-key="5" data-printable class="calculator-key">5</button>
+    <button data-key="6" data-printable class="calculator-key">6</button>
+    <button data-key="*" data-printable data-op class="calculator-key fn-key">×</button>
+    <button data-key="1" data-printable class="calculator-key">1</button>
+    <button data-key="2" data-printable class="calculator-key">2</button>
+    <button data-key="3" data-printable class="calculator-key">3</button>
+    <button data-key="-" data-printable data-op class="calculator-key fn-key">−</button>
+    <button data-key="0" data-printable class="calculator-key">0</button>
+    <button data-key="." data-printable class="calculator-key">.</button>
+    <button data-key="= Enter" class="calculator-key">=</button>
+    <button data-key="+" data-printable data-op class="calculator-key fn-key">+</button>
+  </div>
+  <script type="text/javascript" src="js/script.js"></script>
+  <script type="text/javascript" src="js/lexer.js"></script>
+  <script type="text/javascript" src="js/ast_node.js"></script>
+  <script type="text/javascript" src="js/parser.js"></script>
+  <script type="text/javascript" src="js/interpreter.js"></script>
+</body>
+
+</html>
