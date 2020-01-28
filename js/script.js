@@ -91,5 +91,6 @@ document.querySelector('button[data-key~="="]').addEventListener('click', () => 
     return;
   }
   clearDisplay();
-  writeToDisplay(interpret(parse(lex(expr))));
+  const result = interpret(parse(lex(expr)));
+  writeToDisplay(toPrecisionTrimmed(result, 12));
 });
