@@ -32,5 +32,5 @@ function interpret(astNode) {
     return astNode.token.value;
   }
   const fn = window[functionMap[astNode.token.value]];
-  return fn(interpret(astNode.leftChild), interpret(astNode.rightChild));
+  return fn(...astNode.children.map(interpret));
 }

@@ -1,7 +1,6 @@
 class ASTNode {
-  constructor(token, leftChild, rightChild) {
+  constructor(token, children) {
     this.token = token;
-    this.leftChild = leftChild;
-    this.rightChild = rightChild;
+    this.children = children;
   }
 }

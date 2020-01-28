@@ -16,10 +16,9 @@ const assoc = {
 
 function parse(tokens) {
   const outputStack = [];
-  outputStack.makeASTNode = function (token) {
-    const rightChild = this.pop();
-    const leftChild = this.pop();
-    this.push(new ASTNode(token, leftChild, rightChild));
+  outputStack.makeASTNode = function (token, numberOfChildren) {
+    const children = this.splice(this.length - numberOfChildren, numberOfChildren);
+    this.push(new ASTNode(token, children));
   };
   const outputQueue = [];
   outputQueue.enqueue = outputQueue.push;
@@ -41,14 +40,14 @@ function parse(tokens) {
           || (operatorStack.top().precedence() > token.precedence())
           || (operatorStack.top().precedence() === token.precedence() && token.associativity() === 'left'))
         && operatorStack.top().type !== 'LParen') {
-        outputStack.makeASTNode(operatorStack.pop());
+        outputStack.makeASTNode(operatorStack.pop(), 2);
       }
       operatorStack.push(token);
     } else if (token.type === 'LParen') {
       operatorStack.push(token);
     } else if (token.type === 'RParen') {
       while (operatorStack.length && operatorStack.top().type !== 'LParen') {
-        outputStack.makeASTNode(operatorStack.pop());
+        outputStack.makeASTNode(operatorStack.pop(), 2);
       }
       if (operatorStack.length && operatorStack.top().type === 'LParen') {
         operatorStack.pop();
@@ -56,7 +55,7 @@ function parse(tokens) {
     }
   });
   while (operatorStack.length) {
-    outputStack.makeASTNode(operatorStack.pop());
+    outputStack.makeASTNode(operatorStack.pop(), 2);
   }
   return outputStack.pop();
 }
