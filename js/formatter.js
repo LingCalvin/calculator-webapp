@@ -3,3 +3,5 @@ function toPrecisionTrimmed(number, precision) {
   const useScientific = result.includes('e');
   return useScientific ? result : result / 1;
 }
+
+export { toPrecisionTrimmed as default };

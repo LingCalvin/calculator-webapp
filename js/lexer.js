@@ -1,3 +1,5 @@
+import Token from './token.js';
+
 function isPartOfNumber(ch) {
   return /\d|\./.test(ch);
 }
@@ -8,10 +10,6 @@ function isLParen(ch) {
 
 function isRParen(ch) {
   return ch === ')';
-}
-
-function isOperator(ch) {
-  return /\+|−|×|÷|\^/u.test(ch);
 }
 
 function isPlus(ch) {
@@ -66,3 +64,5 @@ function lex(str) {
   }
   return tokens;
 }
+
+export { lex as default };

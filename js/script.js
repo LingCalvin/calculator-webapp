@@ -1,3 +1,9 @@
+
+import lex from './lexer.js';
+import parse from './parser.js';
+import interpret from './interpreter.js';
+import toPrecisionTrimmed from './formatter.js';
+
 function syncDisplayAndCaretBox() {
   const display = document.querySelector('#current-expression');
   const caretContainer = document.querySelector('#caret-box');

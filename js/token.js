@@ -4,3 +4,5 @@ class Token {
     this.value = value;
   }
 }
+
+export { Token as default };

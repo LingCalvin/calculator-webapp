@@ -4,3 +4,5 @@ class ASTNode {
     this.children = children;
   }
 }
+
+export { ASTNode as default };
