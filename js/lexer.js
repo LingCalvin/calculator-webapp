@@ -27,6 +27,9 @@ function isDivide(ch) {
 function isExponentiate(ch) {
   return ch === '^';
 }
+function isScientificE(ch) {
+  return /e|E/.test(ch);
+}
 
 function lex(str) {
   const tokens = [];
@@ -55,6 +58,8 @@ function lex(str) {
       tokens.push(new Token('lparen', ch));
     } else if (isRParen(ch)) {
       tokens.push(new Token('rparen', ch));
+    } else if (isScientificE(ch)) {
+      tokens.push(new Token('exp', ch));
     } else {
       throw new Error(`Lexing Error: unrecognized token "${ch}"`);
     }
@@ -62,6 +67,7 @@ function lex(str) {
   if (numberBuffer.length) {
     tokens.push(new Token('literal', Number(numberBuffer.join(''))));
   }
+  console.log(tokens);
   return tokens;
 }
 

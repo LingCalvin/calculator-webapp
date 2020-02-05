@@ -53,9 +53,6 @@ function preprocessUnary(tokens) {
   });
 }
 
-// ['lparen', 'rparen'].some((ele) => ele === currentToken.type)
-// ['lparen', 'literal'].includes(currentToken.type);
-
 function hasImplicitTimes(previousToken, currentToken) {
   return (previousToken
          && ((previousToken.type === 'rparen' && ['lparen', 'literal'].includes(currentToken.type))
@@ -76,7 +73,17 @@ function preprocessImplicit(tokens) {
 }
 
 function preprocess(tokens) {
-  return preprocessImplicit(preprocessUnary(tokens));
+  const processedTokens = [];
+  tokens.forEach((token) => {
+    if (token.type === 'exp') {
+      processedTokens.push(new Token('times', '×'));
+      processedTokens.push(new Token('literal', '10'));
+      processedTokens.push(new Token('exponentiate', '^'));
+      return;
+    }
+    processedTokens.push(token);
+  });
+  return preprocessImplicit(preprocessUnary(processedTokens));
 }
 
 function operatorHasHigherPriority(a, b) {
@@ -87,7 +94,7 @@ function operatorHasHigherPriority(a, b) {
 function processPreceedingOperators(token, operatorStack, outputStack) {
   while (operatorStack.length
     && operatorHasHigherPriority(operatorStack.top(), token)
-    && !(numOperands[token.type] === 1 && numOperands[operatorStack.top().type] !== 1)) {
+    && !(numOperands[token.type] === numOperands[operatorStack.top().type])) {
     outputStack.makeASTNode(operatorStack.pop());
   }
 }
@@ -106,6 +113,9 @@ function parse(tokens) {
   const outputStack = [];
   outputStack.makeASTNode = function (token) {
     const numberOfChildren = numOperands.get(token.type);
+    if (this.length < numberOfChildren) {
+      throw new Error('Internal Error: check: this.outputStack < numberOfChildren');
+    }
     const children = this.splice(this.length - numberOfChildren, numberOfChildren);
     this.push(new ASTNode(token, children));
   };
